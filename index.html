@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Red Rhino Digital | Premium Digital Marketing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* === CSS RESET & BASE VARIABLES === */
+        :root {
+            --primary-red: #cc0000;
+            --dark-red: #3a0000;
+            --black: #050505;
+            --text-light: #ffffff;
+            --text-muted: #a0a0a0;
+            --btn-bg-start: rgba(60, 60, 60, 0.4);
+            --btn-bg-end: rgba(10, 10, 10, 0.8);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: var(--black);
+            color: var(--text-light);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        /* === BACKGROUND EFFECTS === */
+        .bg-gradient {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: radial-gradient(circle at 50% 30%, var(--dark-red) 0%, #150000 50%, var(--black) 100%);
+            z-index: -3;
+        }
+
+        .bg-noise {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: -2;
+        }
+
+        .bg-rhino {
+            position: fixed;
+            bottom: -20vh;
+            left: -10vw;
+            height: 130vh;
+            width: auto;
+            opacity: 0.1;
+            transform: rotate(-25deg);
+            pointer-events: none;
+            z-index: -1;
+            filter: drop-shadow(0 0 20px var(--primary-red));
+        }
+
+        /* Subtle cursor glow */
+        .cursor-glow {
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(204, 0, 0, 0.15) 0%, rgba(0,0,0,0) 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+            transition: opacity 0.3s ease;
+        }
+
+        /* === MAIN CONTAINER === */
+        .main-container {
+            width: 100%;
+            max-width: 550px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 10;
+        }
+
+        /* === HEADER === */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: slideDownFade 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .logo-container {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 20px auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(204, 0, 0, 0.2);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            overflow: hidden;
+        }
+
+        .logo-container:hover {
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 30px rgba(204, 0, 0, 0.4);
+        }
+
+        .logo-container img {
+            width: 80%;
+            height: auto;
+        }
+
+        .brand-name {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            background: linear-gradient(180deg, #ffffff 0%, #d4d4d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .tagline {
+            font-size: 0.9rem;
+            font-weight: 300;
+            color: var(--text-muted);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        /* === BUTTONS === */
+        .links-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .link-btn {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            height: 70px;
+            background: linear-gradient(90deg, var(--btn-bg-start) 0%, var(--btn-bg-end) 100%);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 35px;
+            text-decoration: none;
+            color: var(--text-light);
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        /* Sequential Animation for Buttons */
+        .link-btn:nth-child(1) { animation: slideUpFade 0.8s 0.2s forwards; }
+.link-btn:nth-child(2) { animation: slideUpFade 0.8s 0.3s forwards; }
+.link-btn:nth-child(3) { animation: slideUpFade 0.8s 0.4s forwards; }
+.link-btn:nth-child(4) { animation: slideUpFade 0.8s 0.5s forwards; }
+.link-btn:nth-child(5) { animation: slideUpFade 0.8s 0.6s forwards; }
+.link-btn:nth-child(6) { animation: slideUpFade 0.8s 0.7s forwards; }
+.link-btn:nth-child(7) { animation: slideUpFade 0.8s 0.8s forwards; }
+
+        /* Light Sweep Effect */
+        .link-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 50%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: skewX(-20deg);
+            transition: left 0.7s ease;
+        }
+
+        /* Icon Container */
+        .btn-icon {
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: 8px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: transform 0.4s ease, background 0.4s ease;
+        }
+
+        .btn-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: #ffffff;
+            transition: transform 0.4s ease;
+        }
+
+        /* Button Text */
+        .btn-text {
+            flex-grow: 1;
+            text-align: center;
+            padding-right: 62px; /* Offset to perfectly center text ignoring left icon */
+            font-size: 1.05rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        /* Hover States */
+        .link-btn:hover {
+            transform: translateY(-4px) scale(1.01);
+            border-color: rgba(204, 0, 0, 0.4);
+            box-shadow: 0 15px 25px rgba(0,0,0,0.5), 0 0 20px rgba(204, 0, 0, 0.15);
+            background: linear-gradient(90deg, rgba(80, 80, 80, 0.5) 0%, rgba(15, 15, 15, 0.9) 100%);
+        }
+
+        .link-btn:hover::before {
+            left: 200%;
+        }
+
+        .link-btn:hover .btn-icon {
+            transform: scale(1.1);
+            background: rgba(255,255,255,0.05);
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        /* Active/Click State */
+        .link-btn:active {
+            transform: translateY(2px) scale(0.98);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.5);
+        }
+
+        /* === KEYFRAMES === */
+        @keyframes slideDownFade {
+            0% { opacity: 0; transform: translateY(-30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideUpFade {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 600px) {
+            .brand-name { font-size: 1.8rem; }
+            .tagline { font-size: 0.8rem; letter-spacing: 1px; }
+            .link-btn { height: 64px; border-radius: 32px; }
+            .btn-icon { width: 48px; height: 48px; }
+            .btn-text { font-size: 0.95rem; padding-right: 56px; }
+            .bg-rhino { height: 50vh; opacity: 0.04; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-gradient"></div>
+    <div class="bg-noise"></div>
+    <img src="image.png" alt="" class="bg-rhino" id="bgRhino">
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+    <main class="main-container">
+        
+        <header class="header">
+            <div class="logo-container">
+                <img src="logo.jpeg" alt="RedRhino Logo">
+            </div>
+            <h1 class="brand-name">Red Rhino Digital</h1>
+            <p class="tagline">Creative Marketing • Branding • Growth</p>
+        </header>
+
+        <nav class="links-container">
+            
+            <a href="https://redrhinodigital.in/" target="_blank" rel="noopener noreferrer" class="link-btn">
+                <div class="btn-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                </div>
+                <span class="btn-text">Website</span>
+            </a>
+
+            <a href="https://www.instagram.com/redrhinodigital?igsh=MWw1NjQ2dWE3OWtjMA==" target="_blank" rel="noopener noreferrer" class="link-btn">
+                <div class="btn-icon">
+                    <svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
+                </div>
+                <span class="btn-text">Instagram</span>
+            </a>
+
+            <a href="https://www.facebook.com/redrhinodigital" target="_blank" rel="noopener noreferrer" class="link-btn">
+                <div class="btn-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 2.04C6.5 2.04 2 6.53 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.85C10.44 7.34 11.93 5.96 14.22 5.96C15.31 5.96 16.45 6.15 16.45 6.15V8.62H15.19C13.95 8.62 13.56 9.39 13.56 10.18V12.06H16.34L15.89 14.96H13.56V21.96A10 10 0 0 0 22 12.06C22 6.53 17.5 2.04 12 2.04Z"/></svg>
+                </div>
+                <span class="btn-text">Facebook</span>
+            </a>
+
+            <a href="https://www.linkedin.com/company/redrhinodigital" target="_blank" rel="noopener noreferrer" class="link-btn">
+                <div class="btn-icon">
+                    <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-1.85 0-2.5 1.02-2.94 1.62v-1.36h-2.76v8.3h2.76v-4.5c0-1.21.23-2.39 1.74-2.39 1.48 0 1.5 1.39 1.5 2.47v4.42h2.96M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.3H5.5v8.3h2.77z"/></svg>
+                </div>
+                <span class="btn-text">LinkedIn</span>
+            </a>
+
+            <a href="https://www.pinterest.com/redrhinodigital" target="_blank" rel="noopener noreferrer" class="link-btn">
+    <div class="btn-icon">
+        <svg viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12c0 3.82 2.68 7 6.26 7.82-.09-.66-.17-1.68.04-2.41.19-.66 1.23-4.2 1.23-4.2s-.31-.62-.31-1.54c0-1.44.83-2.52 1.87-2.52.88 0 1.3.66 1.3 1.45 0 .89-.57 2.22-.86 3.46-.24 1.04.52 1.9 1.54 1.9 1.85 0 3.27-1.95 3.27-4.77 0-2.49-1.79-4.23-4.35-4.23-2.96 0-4.7 2.22-4.7 4.52 0 .9.35 1.86.79 2.38.09.11.1.21.07.33-.08.36-.27 1.14-.31 1.3-.05.21-.17.25-.39.15-1.46-.68-2.37-2.83-2.37-4.55 0-3.7 2.69-7.1 7.76-7.1 4.07 0 7.24 2.9 7.24 6.77 0 4.04-2.55 7.29-6.09 7.29-1.19 0-2.31-.62-2.69-1.36l-.73 2.78c-.26 1.02-.97 2.29-1.45 3.07 1.09.34 2.24.53 3.44.53 5.52 0 10-4.48 10-10S17.52 2 12 2z"/>
+        </svg>
+    </div>
+    <span class="btn-text">Pinterest</span>
+</a>
+
+<a href="https://x.com/redrhinodigital" target="_blank" rel="noopener noreferrer" class="link-btn">
+    <div class="btn-icon">
+        <svg viewBox="0 0 24 24">
+            <path d="M18.9 2H21l-6.56 7.5L22 22h-6.9l-5.4-7.1L3.6 22H1.5l7-8L2 2h7l5 6.6L18.9 2zm-2.4 18h1.9L7.5 4H5.4l11.1 16z"/>
+        </svg>
+    </div>
+    <span class="btn-text">X</span>
+</a>
+
+            <a href="https://wa.me/919499912508?text=Hi%20I%20have%20an%20enquiry%20regarding%20your%20services" target="_blank" rel="noopener noreferrer" class="link-btn">
+                <div class="btn-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67M8.53 7.33C8.37 7.33 8.1 7.39 7.87 7.64C7.65 7.89 7 8.5 7 9.71C7 10.93 7.89 12.11 8 12.27C8.14 12.43 9.76 14.94 12.25 16C12.84 16.27 13.3 16.42 13.66 16.53C14.25 16.72 14.79 16.69 15.22 16.63C15.7 16.56 16.68 16.03 16.89 15.45C17.1 14.87 17.1 14.38 17.04 14.27C16.97 14.17 16.81 14.11 16.56 14C16.31 13.86 15.09 13.26 14.87 13.18C14.64 13.1 14.5 13.06 14.31 13.3C14.15 13.55 13.67 14.11 13.53 14.27C13.38 14.43 13.24 14.46 13 14.34C12.74 14.21 11.94 13.95 11 13.11C10.26 12.45 9.77 11.64 9.62 11.38C9.5 11.13 9.61 11 9.73 10.89C9.84 10.78 10 10.6 10.1 10.45C10.23 10.31 10.27 10.2 10.35 10.04C10.43 9.87 10.39 9.73 10.33 9.61C10.27 9.5 9.77 8.26 9.56 7.77C9.36 7.29 9.16 7.35 9 7.36C8.86 7.36 8.7 7.33 8.53 7.33Z"/></svg>
+                </div>
+                <span class="btn-text">WhatsApp</span>
+            </a>
+
+        </nav>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const rhino = document.getElementById('bgRhino');
+            const glow = document.getElementById('cursorGlow');
+            
+            // Check if device supports hover (ignores mobile touch for performance)
+            const isHoverableDevice = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+            if (isHoverableDevice) {
+                document.addEventListener('mousemove', (e) => {
+                    const x = e.clientX;
+                    const y = e.clientY;
+
+                    // 1. Move Cursor Glow
+                    glow.style.left = `${x}px`;
+                    glow.style.top = `${y}px`;
+
+                    // 2. Subtle Parallax for Rhino Background
+                    // Calculate distance from center (-1 to 1)
+                    const xOffset = (x / window.innerWidth - 0.5) * 2;
+                    const yOffset = (y / window.innerHeight - 0.5) * 2;
+                    
+                    // Move rhino slightly based on mouse position (max 15px)
+                    const moveX = xOffset * 15;
+                    const moveY = yOffset * 15;
+                    
+                });
+            }
+        });
+    </script>
+</body>
+</html>
+
